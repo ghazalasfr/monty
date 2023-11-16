@@ -37,6 +37,7 @@ void push(stack_t **stack, unsigned int val){
   */
 void push_queue(stack_t **stack, unsigned int val)
 {
+<<<<<<< HEAD
         stack_t *current = NULL, *new_node = NULL;
 
         new_node = malloc(sizeof(stack_t));
@@ -62,3 +63,29 @@ void push_queue(stack_t **stack, unsigned int val)
         *stack = new_node;
 }
 
+=======
+	stack_t *current = NULL, *new_node = NULL;
+
+	new_node = malloc(sizeof(stack_t));
+	if (new_node == NULL)
+		 fprintf(stderr, "Error: Unable to allocate memory.\n");
+                exit(ERR_BAD_MALL);
+
+	new_node->n = val;
+	if (*stack)
+	{
+		current = *stack;
+		while (current->next != NULL)
+			current = current->next;
+
+		new_node->next = NULL;
+		new_node->prev = current;
+		current->next = new_node;
+		return;
+	}
+
+	new_node->next = *stack;
+	new_node->prev = NULL;
+	*stack = new_node;
+}
+>>>>>>> 98ddc791179df8c67a3a153b7deeb2ad1db0e38d

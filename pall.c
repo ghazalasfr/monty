@@ -10,6 +10,7 @@
  */
 void pall(stack_t **stack, unsigned int nbre)
 {
+<<<<<<< HEAD
         stack_t *current = NULL;
         (void) nbre;
 
@@ -24,3 +25,18 @@ void pall(stack_t **stack, unsigned int nbre)
         }
 }
 
+=======
+	stack_t *current = NULL;
+	(void) nbre;
+
+	if (*stack)
+	{
+		current = *stack;
+		while (current != NULL)
+		{
+			printf("%d\n", current->n);
+			current = current->next;
+		}
+	}
+}
+>>>>>>> 98ddc791179df8c67a3a153b7deeb2ad1db0e38d
