@@ -1,11 +1,13 @@
 #ifndef _MONTY_H
 #define _MONTY_H
-#include <ctype.h>
-#include <fcntl.h>
-#include <stdlib.h>
+
+#define _GNU_SOURCE
 #include <stdio.h>
-#include <string.h>
 #include <unistd.h>
+#include <string.h>
+#include <stdlib.h>
+#include <ctype.h>
+#include <stdarg.h>
 
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
@@ -23,6 +25,9 @@ typedef struct stack_s
 	struct stack_s *next;
 } stack_t;
 
+typedef void (*code_func)(stack_t **, unsigned int);
+extern stack_t *head;
+
 /**
  * struct instruction_s - opcode and its function
  * @opcode: the opcode
@@ -33,16 +38,20 @@ typedef struct stack_s
  */
 typedef struct instruction_s
 {
-	char *opcode;
+	char *op_code;
 	void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
+void open_f(char *name_f);
 
-void push(stack_t **stack, unsigned int ptr);
-void push_queue(stack_t **stack, unsigned int ptr);
+int diviser(char *bf, int nbre, int format);
+void choose_function(char *op_code, char *vl, int ln, int format);
+void main_func(code_func func, char *op, char *val, int nbre, int format);
+
+void free_nodes(void);
+stack_t *new_node(int n);
+
+void push(stack_t **stack, unsigned int val);
+void push_queue(stack_t **stack, unsigned int val);
 void pall(stack_t **stack, unsigned int nbre);
-void pint(stack_t **stack, unsigned int nbre);
-void pop(stack_t **stack, unsigned int nbre);
-void swap(stack_t **stack, unsigned int nbre);
-void add(stack_t **stack, unsigned int nbre);
 #endif
