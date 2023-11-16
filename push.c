@@ -9,23 +9,20 @@
   * Return: Nothing
   */
 void push(stack_t **stack, unsigned int val){
-        stack_t *newNode = NULL;
-        newNode = (stack_t *)malloc(sizeof(stack_t));
-        if (newNode == NULL) {
-                fprintf(stderr, "Error: Unable to allocate memory.\n");
-                exit(ERR_BAD_MALL);
-        }
-        newNode->n = val;
-        if (*stack) {
-                newNode->next = *stack;
-                newNode->prev = (*stack)->prev;
-                (*stack)->prev = newNode;
-                *stack = newNode;
-        } else {
-                newNode->next = *stack;
-                newNode->prev = NULL;
-                *stack = newNode;
-        }
+        stack_t *tmp;
+	(void)val;
+
+	if (stack == NULL || *stack == NULL)
+		exit(EXIT_FAILURE);
+	if (head == NULL)
+	{
+		head = *stack;
+		return;
+	}
+	tmp = head;
+	head = *stack;
+	head->next = tmp;
+	tmp->prev = head;
 }
 
 /**
@@ -37,27 +34,20 @@ void push(stack_t **stack, unsigned int val){
   */
 void push_queue(stack_t **stack, unsigned int val)
 {
-        stack_t *current = NULL, *new_node = NULL;
+	stack_t *tmp;
+	(void) val;
 
-        new_node = malloc(sizeof(stack_t));
-        if (new_node == NULL)
-                 fprintf(stderr, "Error: Unable to allocate memory.\n");
-                exit(ERR_BAD_MALL);
+	if (stack == NULL || *stack == NULL)
+		exit(EXIT_FAILURE);
+	if (head == NULL)
+	{
+		head = *stack;
+		return;
+	}
+	tmp = head;
+	while (tmp->next != NULL)
+		tmp = tmp->next;
 
-        new_node->n = val;
-        if (*stack)
-        {
-                current = *stack;
-                while (current->next != NULL)
-                        current = current->next;
-
-                new_node->next = NULL;
-                new_node->prev = current;
-                current->next = new_node;
-                return;
-        }
-
-        new_node->next = *stack;
-        new_node->prev = NULL;
-        *stack = new_node;
+	tmp->next = *stack;
+	(*stack)->prev = tmp;
 }

@@ -55,4 +55,5 @@ void push(stack_t **stack, unsigned int val);
 void push_queue(stack_t **stack, unsigned int val);
 void pall(stack_t **stack, unsigned int nbre);
 void nop(stack_t **stack, unsigned int nbre);
+void pint(stack_t **stack, unsigned int nbre);
 #endif
