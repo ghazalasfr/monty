@@ -3,12 +3,12 @@
 /**
   * nop - Doesn’t do anything
   * @stack: The head of the stack
-  * @line_number: The line on which the error occurred
+  * @nbre: The line on which the error occurred
   *
   * Return: Nothing
   */
-void nop(stack_t **stack, unsigned int line_number)
+void nop(stack_t **stack, unsigned int nbre)
 {
 	(void) stack;
-	(void) line_number;
+	(void) nbre;
 }

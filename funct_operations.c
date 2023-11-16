@@ -43,9 +43,11 @@ void choose_function(char *op_code, char *vl, int ln, int format)
         int flag;
 
         instruction_t func_list[] = {
-                {"push", push},
-                {"pall", pall},
-                {NULL, NULL}
+                { "push", push },
+		{ "push_queue", push_queue },
+		{ "pall", pall },
+		{ "nop", nop },
+		{ NULL, NULL }
         };
 
         if (op_code[0] == '#')
