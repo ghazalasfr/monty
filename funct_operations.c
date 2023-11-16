@@ -44,7 +44,7 @@ int diviser(char *bf, int nbre, int format)
 void choose_function(char *op_code, char *vl, int ln, int format)
 {
         int i;
-        int flag;
+        int M;
 
         instruction_t func_list[] = {
                 { "push", push},
@@ -52,22 +52,27 @@ void choose_function(char *op_code, char *vl, int ln, int format)
 		{ "pall", pall },
 		{ "nop", nop },
 	        { "pint", pint },
+		{ "swap", swap },
+		{ "add", add },
+		{ "sub", sub },
+		{ "div", divion},
+		{ "pop", pop },
 		{ NULL, NULL }
         };
     
         if (op_code[0] == '$')
                 return;
 
-	for (flag = 1, i = 0; func_list[i].op_code != NULL; i++)
+	for (M = 1, i = 0; func_list[i].op_code != NULL; i++)
 	{
 		if (strcmp(op_code, func_list[i].op_code) == 0)
 		{
 			main_func(func_list[i].f, op_code, vl, ln, format);
-			flag = 0;
+			M = 0;
 		}
 	}
 
-        if (flag == 1){
+        if (M == 1){
 		fprintf(stderr, "L%d: unknown instruction %s\n",ln, op_code);
 		free_nodes();
 		exit(EXIT_FAILURE);
@@ -86,7 +91,7 @@ void choose_function(char *op_code, char *vl, int ln, int format)
  * @format: ......
  * return : .....
  */
-void main_func(code_func func, char *op, char *val, int nbre, int format)
+void main_func(code_func custum_f, char *op, char *val, int nbre, int format)
 {
 	stack_t *node;
 	int N;
@@ -100,20 +105,24 @@ void main_func(code_func func, char *op, char *val, int nbre, int format)
 			val = val+1;
 			N = -1;
 		}
-		if (val == NULL)
+		if (val == NULL){
 			fprintf(stderr, "L%d: usage: push integer\n", nbre);
+			exit(EXIT_FAILURE);
+		}
 		for (i = 0; val[i] != '\0'; i++)
 		{
-			if (isdigit(val[0]) == 0)
-				fprintf(stderr, "L%d: usage:-- -- push integer\n", nbre);
+			if (isdigit(val[0]) == 0){
+				fprintf(stderr, "L%d: usage:push integer\n", nbre);
+				exit(EXIT_FAILURE);
+			}
 		}
 		node = new_node(atoi(val) * N);
 		if (format == 0)
-			func(&node, nbre);
+			custum_f(&node, nbre);
 		if (format == 1)
 			push_queue(&node, nbre);
 	}else {
-		func(&head, nbre);
+		custum_f(&head, nbre);
 	}
 }
 
