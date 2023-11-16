@@ -1,4 +1,4 @@
-#include "main.h"
+#include "monty.h"
 
 /**
  * diviser - Separates each line into tokens
